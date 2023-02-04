@@ -1,11 +1,9 @@
 # Python3 Web Poller - Check for downtime!
 ## Introduction
 
-Welcome to the Python3 Web Poller.
+The Python3 Web Poller is a script that helps you monitor websites for unexpected downtime. If a website returns a status code other than the expected 200 HTTP code, the script will send a notification to a Discord webhook. This way, you'll be immediately informed if one of your websites goes offline and can start working on bringing it back up.
 
-I made this script so I can easily monitor some of my own websites for (unexpected) downtime. When a website gives a status other than the expect `200` HTTP-code, it will send a notification to a configured Discord webhook. This way I'll know immediately when my websites are offline and I can begin my process of getting it online again.
-
-When a website is down, it will only send a message once. When the website gets a `200` HTTP-code again, it will send a message that the website is live again and watch for new potential downtime.
+The script is designed to only send a notification once per instance of downtime. When the website becomes available again and returns a 200 HTTP code, the script will send another notification to indicate that the website is live and will continue monitoring for any future downtime.
 
 
 ## Requirements
