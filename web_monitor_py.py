@@ -53,7 +53,7 @@ while True:
         conn.commit()
 
     except requests.exceptions.RequestException as e:
-      if (lastTimeFailed == 0):
+      if lastTimeFailed == 0:
         # Send a Discord notification if the website is offline
         discord_message = f"The website {url} is offline. Error:```\n{e}\n```"
         requests.post(discord_webhook_url, data={"content": discord_message})
