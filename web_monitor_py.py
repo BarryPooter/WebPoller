@@ -18,13 +18,15 @@ cursor = conn.cursor()
 
 # Query the database to get the list of websites
 query = "SELECT url, last_try_failed FROM websites"
-cursor.execute(query)
-websites = cursor.fetchall()
 
 # Define the Discord webhook URL
 discord_webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
 
 while True:
+  # Get latest information from MySQL database.
+  cursor.execute(query)
+  websites = cursor.fetchall()
+
   for website in websites:
     url = website[0]
     lastTimeFailed = website[1]
