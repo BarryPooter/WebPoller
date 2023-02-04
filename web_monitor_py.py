@@ -14,6 +14,12 @@ conn = mysql.connector.connect(
   database=os.getenv('MYSQL_DB')
 )
 
+requestHeaders = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8',
+    'Connection': 'close'
+}
+
 pollSpeed = int(os.getenv('POLL_FREQUENCY_SEC'))
 
 
@@ -34,7 +40,7 @@ while True:
 
     # Check if the website is online
     try:
-      response = requests.get(url)
+      response = requests.get(url, headers=requestHeaders)
       status = response.status_code
 
       if status != 200 and lastTimeFailed == 0:
