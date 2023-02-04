@@ -63,4 +63,4 @@ while True:
         conn.commit()
 
   # Wait for five minutes before checking again
-  time.sleep(300)
+  time.sleep(60)
