@@ -14,23 +14,24 @@ conn = mysql.connector.connect(
   database=os.getenv('MYSQL_DB')
 )
 
-cursor = conn.cursor()
+pollSpeed = int(os.getenv('POLL_FREQUENCY_SEC'))
+
 
 # Query the database to get the list of websites
-query = "SELECT url, last_try_failed FROM websites"
-
 # Define the Discord webhook URL
 discord_webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
 
 while True:
   # Get latest information from MySQL database.
-  cursor.execute(query)
+  cursor = conn.cursor()
+  cursor.execute("SELECT url, last_try_failed FROM websites")
   websites = cursor.fetchall()
+  conn.commit()
 
   for website in websites:
     url = website[0]
     lastTimeFailed = website[1]
-  
+
     # Check if the website is online
     try:
       response = requests.get(url)
@@ -65,4 +66,4 @@ while True:
         conn.commit()
 
   # Wait for five minutes before checking again
-  time.sleep(60)
+  time.sleep(pollSpeed)
